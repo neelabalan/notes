@@ -1,0 +1,29 @@
+- top/glances/htop/bashtop etc
+- vmstat
+- w
+- uptime
+- ps
+- free
+- iostat
+- sar
+- mpstat
+- pmap
+- netstat
+- ss
+- iptraf
+- tcpdump
+- iotop
+- atop
+- ac/lastcomm
+- monit
+- nethogs
+- iftop
+- vnstat
+- nmon
+- strace
+- /proc/ system kernel statistics
+- nagios
+- cacti
+- nmap
+- lsof
+- ntop
