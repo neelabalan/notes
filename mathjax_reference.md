@@ -10,6 +10,7 @@
   - [Vectors](#vectors)
   - [Arrows](#arrows)
   - [Limits, sums, products \& integrals](#limits-sums-products--integrals)
+- [Reference links](#reference-links)
 
 
 ### Matrices
@@ -161,4 +162,9 @@ $$ \int_o^\infty e^x dx $$
 
 $$ \iint_D  \qquad  \iiint_V  \qquad  \oint_C $$
 
-$$ {\huge\unicode{x222F}}_S   \qquad   {\huge\unicode{x2230}}_V $$
+<!-- $$ {\huge\unicode{x222F}}_S   \qquad   {\huge\unicode{x2230}}_V $$ -->
+
+## Reference links
+
+- [sqlpac.com](https://www.sqlpac.com/en/documents/mathjax-tex-practical-handbook-quick-reference.html)
+- [mathematics meta](https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference)
