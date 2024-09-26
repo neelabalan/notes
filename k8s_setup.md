@@ -88,3 +88,12 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 sudo kubeadm join 192.168.1.15:6443 --token  <token> --discovery-token-ca-cert-hash <sha-hash>
 ```
 
+
+### Flannel setup
+
+```sh
+wget https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+
+# change the cidr address and deploy
+
+kubectl apply -f kube-flanne.yml
