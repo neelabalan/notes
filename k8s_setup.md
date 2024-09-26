@@ -97,3 +97,12 @@ wget https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel
 # change the cidr address and deploy
 
 kubectl apply -f kube-flanne.yml
+```
+
+### Reference
+
+| **CIDR Notation**              | **Network Part**               | **Host Part**                              | **Total Usable IPs**                  |
+|---------------------------------|--------------------------------|--------------------------------------------|---------------------------------------|
+| `/24` (e.g., `192.168.1.0/24`)  | `192.168.1` (24 bits)          | Last octet (8 bits) for hosts (e.g., `0-255`) | 254 (since 2 addresses are reserved)  |
+| `/16` (e.g., `192.168.0.0/16`)  | `192.168` (16 bits)            | Last two octets (16 bits) for hosts (e.g., `0.0-255.255`) | 65,534 (since 2 addresses are reserved) |
+
