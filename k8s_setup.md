@@ -106,3 +106,23 @@ kubectl apply -f kube-flanne.yml
 | `/24` (e.g., `192.168.1.0/24`)  | `192.168.1` (24 bits)          | Last octet (8 bits) for hosts (e.g., `0-255`) | 254 (since 2 addresses are reserved)  |
 | `/16` (e.g., `192.168.0.0/16`)  | `192.168` (16 bits)            | Last two octets (16 bits) for hosts (e.g., `0.0-255.255`) | 65,534 (since 2 addresses are reserved) |
 
+
+### dashboard setup
+
+> In case of any issues
+> https://github.com/kubernetes/dashboard/issues/9077#issuecomment-2375448713
+
+`kubectl rollout restart deployment -n kube-system coredns`
+
+
+```sh
+kubectl create serviceaccount admin-user -n kubernetes-dashboard
+
+kubectl create clusterrolebinding dashboard-admin --clusterrole=cluster-admin --serviceaccount=kubernetes-dashboard:admin-user
+
+kubectl -n kubernetes-dashboard create token admin-user
+```
+
+- `sudo ctr image pull docker.io/nvidia/cuda:11.0-base-ubuntu20.04`
+
+- `sudo ctr run --rm --gpus 0 --runtime io.containerd.runc.v1 docker.io/nvidia/cuda:12.6.1-cudnn-runtime-ubuntu22.04 test-nvidia nvidia-smi`
