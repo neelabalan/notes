@@ -3,7 +3,13 @@
 This guide walks through the process of creating a custom AlmaLinux 9.x ISO image with an embedded Kickstart configuration (`ks.cfg`) for automated installation.
 
 
-## Prepare Bbse ISO file system
+## Dependencies
+
+```bash
+sudo dnf install genisoimage isom5sum syslinux mtools
+```
+
+## Prepare base ISO file system
 
 ```sh
 mkdir almalinux_custom
