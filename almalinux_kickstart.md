@@ -1,4 +1,4 @@
-# 📀 Custom AlmaLinux ISO image creation guide
+# 📀 Custom AlmaLinux ISO image creation guide (Bare metal)
 
 This guide walks through the process of creating a custom AlmaLinux 9.x ISO image with an embedded Kickstart configuration (`ks.cfg`) for automated installation.
 
