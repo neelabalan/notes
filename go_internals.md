@@ -50,3 +50,23 @@ export GOMAXPROCS=n
 
 
 Adjusting this value can be useful for fine-tuning performance in CPU-bound workloads or when running in containerized environments where available cores are limited.
+
+### References
+
+- https://youtu.be/-K11rY57K7k
+    - Dmitry Vyukov — Go scheduler: Implementing language with lightweight concurrency
+
+- https://go.dev/src/runtime/proc.go
+    - Go runtime scheduler source (G, M, P logic)
+
+- https://go.dev/blog/go1.14
+    - Go 1.14 release blog (introducing asynchronous goroutine preemption)
+
+- https://github.com/golang/go/issues/24543
+    - Issue on non-cooperative (preemptive) scheduling in Go’s runtime
+
+- https://go.dev/pkg/runtime
+    - Official runtime package documentation (GOMAXPROCS, etc.)
+
+- https://go.dev/src/runtime/stack.go
+    - Stack growth, preemption checks, system vs goroutine stack logic
