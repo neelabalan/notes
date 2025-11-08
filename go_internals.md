@@ -51,6 +51,26 @@ export GOMAXPROCS=n
 
 Adjusting this value can be useful for fine-tuning performance in CPU-bound workloads or when running in containerized environments where available cores are limited.
 
+### Goroutine Scheduling: Poll Order
+
+When a P (processor) needs to find work to do, the Go scheduler follows a specific poll order to locate runnable goroutines. This systematic approach ensures efficient load distribution and prevents starvation:
+
+1. Local Run Queue: The scheduler first checks the P's local run queue. This is the most common case and minimizes lock contention since the queue is private to the P.
+
+2. Global Run Queue (GRQ): If the local queue is empty, the scheduler checks the global run queue. To prevent starvation of goroutines in the GRQ, the scheduler periodically checks it even when the local queue has work (roughly every 61st scheduling tick).
+
+3. Network Poller: The scheduler then checks if there are any goroutines waiting on network I/O or timers that have become ready. This integrates I/O-bound work seamlessly with CPU-bound work.
+
+4. Work Stealing: If all previous sources are empty, the P attempts to steal work from other Ps' local run queues. It randomly selects another P and tries to steal half of its runnable goroutines. This load balancing mechanism helps distribute work across all available processors.
+
+5. Check GRQ Again: Before giving up, the scheduler checks the global run queue one more time.
+
+6. Poll Network Again: As a final attempt, it polls the network poller again to see if any I/O has completed.
+
+If all these attempts fail, the P goes idle and the M (OS thread) may be put to sleep or parked until new work arrives.
+
+This poll order is designed to maximize throughput while maintaining fairness and preventing both starvation and excessive contention on shared resources.
+
 ### References
 
 - https://youtu.be/-K11rY57K7k
@@ -59,14 +79,23 @@ Adjusting this value can be useful for fine-tuning performance in CPU-bound work
 - https://go.dev/src/runtime/proc.go
     - Go runtime scheduler source (G, M, P logic)
 
+- https://go.dev/src/runtime/proc.go#L3344
+    - findRunnable() function showing the complete poll order logic
+
 - https://go.dev/blog/go1.14
     - Go 1.14 release blog (introducing asynchronous goroutine preemption)
 
 - https://github.com/golang/go/issues/24543
-    - Issue on non-cooperative (preemptive) scheduling in Go’s runtime
+    - Issue on non-cooperative (preemptive) scheduling in Go's runtime
 
 - https://go.dev/pkg/runtime
     - Official runtime package documentation (GOMAXPROCS, etc.)
 
 - https://go.dev/src/runtime/stack.go
     - Stack growth, preemption checks, system vs goroutine stack logic
+
+- https://rakyll.org/scheduler/
+    - The Go scheduler by Jaana Dogan (visual explanation of work stealing)
+
+- https://morsmachine.dk/go-scheduler
+    - Daniel Morsing's deep dive into the Go scheduler mechanics
